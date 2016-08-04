@@ -1,0 +1,28 @@
+_repo: The-Chinese-Nightingale-and-Other-Poems_592
+_version: 0.0.1
+creator:
+  author:
+    agent_name: Lindsay, Vachel
+    alias: Lindsay, Nicholas Vachel
+    birthdate: 1879
+    deathdate: 1931
+    gutenberg_agent_id: '234'
+    url: http://www.gutenberg.org/2009/agents/234
+    wikipedia: http://en.wikipedia.org/wiki/Vachel_Lindsay
+description: ''
+gutenberg_issued: '1996-07-01'
+gutenberg_type: Text
+identifiers:
+  gutenberg: '592'
+language: en
+publisher: Project Gutenberg
+rights: Public domain in the USA.
+rights_url: http://creativecommons.org/about/pdm
+subjects:
+- !lcsh 'World War, 1914-1918 -- Poetry'
+- !lcc 'PS'
+- !lcsh 'American poetry'
+- !lcsh 'Fairy tales -- Poetry'
+- GITenberg
+title: The Chinese Nightingale, and Other Poems
+url: http://www.gutenberg.org/ebooks/592
