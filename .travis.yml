@@ -1,0 +1,61 @@
+sudo: required
+dist: trusty
+language: ruby
+
+before_install:
+before_install:
+- gem install asciidoctor -v 1.5.2
+- gem install tilt
+- sudo pip install git+https://github.com/gitenberg-dev/gitberg
+- sudo pip install pillow
+- sudo pip install cssutils
+- sudo pip install docutils
+- sudo pip install roman
+- sudo pip install git+https://github.com/gitenberg-dev/pg-epubmaker
+script:
+- VERSION=`ruby -e "require 'yaml'; meta = YAML.load_file('metadata.yaml'); puts meta['_version'];"`
+- git clone https://github.com/gitenberg-dev/asciidoctor-htmlbook.git
+- sudo pip install -r asciidoctor-htmlbook/gitberg-machine/requirements.txt
+
+- /usr/bin/python -c "from gitenberg import travis; travis.build_epub()"
+- ebook-convert book.epub book.mobi
+- xvfb-run ebook-convert book.epub book.pdf
+branches:
+  only:
+  - master
+notifications:
+  webhooks:
+    urls:
+      - https://unglue.it/api/travisci/webhook
+    on_success: always
+    on_failure: never
+    on_start: never
+deploy:
+  skip_cleanup: true
+  provider: releases
+  api_key:
+    secure: g8DUVUsHya+KZawelI25iBaum3LT/joRe3HBTtOpd88bkniFtFGv7txJ2VVKXDc+TaWd1kxoGi9mrtJc2Qgg9zOLS9VsVukyNwGMKG9662I9aw/UuzB1GH8Af5bSIYIfR35sqmW//PcMbPGMsaqar1luZuWy1ziuV1ET87+bOcOxCqXJ0tSceE0EdyrKnEg8V2tJRfvzoVwN/uz+XFY4/yZjeppBWaubWw45IeECDHNMTzRHsTMmbmtfam1TOe7wdLvW7n5pkloEQvyNzkkXdtDOnCZwzU5Ss4ZZ+k3IfnOBoYpcR2fDsj8vtTV7iIJUj0Y//tl/wumN8DAHr1pmLXTMyXtZuJHHIY34S8cnGgiPHrZDOlLPgoNtKO+f7ceGwTwXVVQmfcCQP8otCDXk+xcgEUnI7iUT5Bp8x//6qDu0V8aGENkegxFf25QR97Luw6KG0jPWesyZAkuEBcuccX9LVgjN44CdoLb0uMFBDEOkqvPxkipBxjAluvBk6FwXuHlBwmEuFGqFGtqq8cxV2PcMix4GngYsQTgiD2e82qq0MUztbtfkAxispSjWCIkBRTQTyP0BKVjzduMc5Y2JOOOpjnDVGj8LaFHjgY42AbvheaW9/dVAese+gaEJjCWUbqcNYLhhJOPfzCrFBXNe7k+hvEtFrdRsmxGlZ8r1bIw=
+  file:
+    - book.epub
+    - book.mobi
+    - book.pdf
+  "on":
+    repo: GITenberg/The-Chinese-Nightingale-and-Other-Poems_592
+addons:
+  apt:
+    packages:
+    - xsltproc
+    - xvfb
+    - calibre
+    - python-pip
+    - git
+    - python-dev
+    - libjpeg-dev
+    - libpng-dev
+    - libfreetype6
+    - libfreetype6-dev
+    - zlib1g-dev
+    - python-lxml
+    - libxml2-dev
+    - libxslt1-dev
+    - tidy
